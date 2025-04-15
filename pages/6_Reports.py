@@ -61,3 +61,10 @@ st.plotly_chart(fig2, use_container_width=True)
 st.subheader("📤 Export Data")
 csv = filtered_df.to_csv(index=False).encode("utf-8")
 st.download_button("⬇️ Download CSV", data=csv, file_name="payment_report.csv", mime="text/csv")
+
+if "user" in st.session_state:
+    role = st.session_state.user["role"]
+    if role == "admin":
+        st.markdown('<style>.sidebar .sidebar-content {{ background-color: #E6F0FF; }}</style>', unsafe_allow_html=True)
+    elif role == "contractor":
+        st.markdown('<style>.sidebar .sidebar-content {{ background-color: #E8F8F0; }}</style>', unsafe_allow_html=True)
