@@ -1,5 +1,4 @@
 import streamlit as st
-from streamlit_extras.switch_page_button import switch_page
 
 st.set_page_config(
     page_title="Contractor Payment System",
@@ -7,34 +6,36 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-st.markdown(
-    """
-    <style>
-    .main {padding-top: 2rem;}
-    .stButton button {
-        border-radius: 0.5rem;
-        font-size: 1rem;
-        padding: 0.75rem 1.5rem;
-    }
-    .stTextInput input, .stSelectbox div {
-        font-size: 1rem;
-        padding: 0.5rem;
-    }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
+from utils.ui import render_header
+render_header()
 
-st.title("🚧 Contractor Payment Portal")
-
-st.markdown("Welcome! Please navigate using the tabs on the left.")
-
+# Sidebar coloring by role
 if "user" in st.session_state:
-    role = st.session_state["user"]["role"]
+    role = st.session_state.user["role"]
     if role == "admin":
-        switch_page("Review_Requests")
-    else:
-        switch_page("Submit_Request")
-else:
-    switch_page("Login")
+        st.markdown('<style>.sidebar .sidebar-content { background-color: #E6F0FF; }</style>', unsafe_allow_html=True)
+    elif role == "contractor":
+        st.markdown('<style>.sidebar .sidebar-content { background-color: #E8F8F0; }</style>', unsafe_allow_html=True)
 
+# Title
+st.title("🚧 Contractor Payment Portal")
+st.markdown("Use the sidebar to navigate the system.")
+
+# Sidebar Nav
+st.sidebar.title("📂 Navigation")
+selection = st.sidebar.radio("Go to", options=[
+    "Help",
+    "Login/Register",
+    "Submit Request",
+    "My Requests",
+    "Review Requests",
+    "User Management",
+    "Reports",
+    "Site Charts"
+])
+
+# Simple redirect notice
+st.info(f"You selected: {selection}. Please navigate using the left panel tabs.")
+
+# You can optionally preload values via query params
+st.experimental_set_query_params(tab=selection.lower().replace(" ", "_"))
