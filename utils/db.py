@@ -63,3 +63,10 @@ def reset_user_password(email):
         st.success(f"Password reset email sent to {email}")
     except:
         st.error("Failed to send password reset email.")
+
+from utils.emailer import send_email
+send_email(
+    subject="New Payment Request Submitted",
+    message=f"New request from {contractor} for ${amount}.\n\nCheck dashboard to review.",
+    to_email=st.secrets["email"]["notify_admin"]
+)
