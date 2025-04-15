@@ -1,3 +1,6 @@
+from utils.ui import render_header
+render_header()
+
 import streamlit as st
 from utils.auth import login_user, register_user
 
