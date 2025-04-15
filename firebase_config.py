@@ -8,7 +8,7 @@ firebase_config = {
     "storageBucket": st.secrets["firebase"]["storage_bucket"],
     "messagingSenderId": st.secrets["firebase"]["messaging_sender_id"],
     "appId": st.secrets["firebase"]["app_id"],
-    "measurementId": st.secrets["firebase"]["measurement_id"],
+    "measurementId": st.secrets["firebase"].get("measurement_id", ""),
     "databaseURL": st.secrets["firebase"]["database_url"]
 }
 
@@ -16,4 +16,3 @@ firebase = pyrebase.initialize_app(firebase_config)
 auth = firebase.auth()
 db = firebase.database()
 storage = firebase.storage()
-
