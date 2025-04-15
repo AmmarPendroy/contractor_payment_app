@@ -1,41 +1,31 @@
 import streamlit as st
-
-st.set_page_config(
-    page_title="Contractor Payment System",
-    layout="wide",
-    initial_sidebar_state="expanded"
-)
-
 from utils.ui import render_header
+from utils.auth import get_current_user
+from utils.sidebar import render_sidebar
+
+# Render UI elements
+render_sidebar()
 render_header()
 
-# Sidebar coloring by role
-if "user" in st.session_state:
-    role = st.session_state.user["role"]
-    if role == "admin":
-        st.markdown('<style>.sidebar .sidebar-content { background-color: #E6F0FF; }</style>', unsafe_allow_html=True)
-    elif role == "contractor":
-        st.markdown('<style>.sidebar .sidebar-content { background-color: #E8F8F0; }</style>', unsafe_allow_html=True)
+# Page routing
+PAGES = {
+    "Help": "pages/0_Help.py",
+    "Login": "pages/1_Login.py",
+    "Submit Request": "pages/2_Submit_Request.py",
+    "Review Requests": "pages/3_Review_Requests.py",
+    "My Requests": "pages/4_My_Requests.py",
+    "Admin Users": "pages/5_Admin_Users.py",
+    "Reports": "pages/6_Reports.py",
+    "Site Charts": "pages/7_Site_Charts.py"
+}
 
-# Title
-st.title("🚧 Contractor Payment Portal")
-st.markdown("Use the sidebar to navigate the system.")
+def main():
+    st.set_page_config(page_title="Contractor Payment System", layout="wide")
+    user = get_current_user()
+    if user:
+        st.switch_page(PAGES.get(st.session_state.get("current_page", "Submit Request")))
+    else:
+        st.switch_page(PAGES["Login"])
 
-# Sidebar Nav
-st.sidebar.title("📂 Navigation")
-selection = st.sidebar.radio("Go to", options=[
-    "Help",
-    "Login/Register",
-    "Submit Request",
-    "My Requests",
-    "Review Requests",
-    "User Management",
-    "Reports",
-    "Site Charts"
-])
-
-# Simple redirect notice
-st.info(f"You selected: {selection}. Please navigate using the left panel tabs.")
-
-# You can optionally preload values via query params
-st.experimental_set_query_params(tab=selection.lower().replace(" ", "_"))
+if __name__ == "__main__":
+    main()
