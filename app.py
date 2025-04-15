@@ -3,10 +3,6 @@ from utils.ui import render_header
 from utils.auth import get_current_user
 from utils.sidebar import render_sidebar
 
-# Render UI elements
-render_sidebar()
-render_header()
-
 # Page routing
 PAGES = {
     "Help": "pages/0_Help.py",
@@ -21,6 +17,10 @@ PAGES = {
 
 def main():
     st.set_page_config(page_title="Contractor Payment System", layout="wide")
+    
+    render_sidebar()
+    render_header()
+
     user = get_current_user()
     if user:
         st.switch_page(PAGES.get(st.session_state.get("current_page", "Submit Request")))
