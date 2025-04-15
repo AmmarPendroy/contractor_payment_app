@@ -1,1 +1,6 @@
-
+streamlit
+streamlit-extras
+pyrebase4
+pandas
+plotly
+secure-smtplib
