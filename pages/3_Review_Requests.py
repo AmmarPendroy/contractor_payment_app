@@ -1,9 +1,15 @@
-from utils.ui import render_header
-render_header()
-
 import streamlit as st
 from utils.auth import ensure_logged_in
 from utils.db import get_all_requests, update_request_status
+from utils.ui import render_header
+render_header()
+
+if "user" in st.session_state:
+    role = st.session_state.user["role"]
+    if role == "admin":
+        st.markdown('<style>.sidebar .sidebar-content { background-color: #E6F0FF; }</style>', unsafe_allow_html=True)
+    elif role == "contractor":
+        st.markdown('<style>.sidebar .sidebar-content { background-color: #E8F8F0; }</style>', unsafe_allow_html=True)
 
 st.set_page_config(page_title="Review Requests", layout="wide")
 ensure_logged_in(role="admin")
@@ -37,10 +43,3 @@ else:
                     update_request_status(req_id, "rejected")
                     st.warning("Rejected.")
                     st.experimental_rerun()
-
-if "user" in st.session_state:
-    role = st.session_state.user["role"]
-    if role == "admin":
-        st.markdown('<style>.sidebar .sidebar-content {{ background-color: #E6F0FF; }}</style>', unsafe_allow_html=True)
-    elif role == "contractor":
-        st.markdown('<style>.sidebar .sidebar-content {{ background-color: #E8F8F0; }}</style>', unsafe_allow_html=True)
