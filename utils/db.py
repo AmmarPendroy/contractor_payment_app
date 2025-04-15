@@ -53,3 +53,20 @@ def get_user_requests(uid):
     all_reqs = db.child("payment_requests").get().val() or {}
     user_reqs = [v for v in all_reqs.values() if v.get("user_id") == uid]
     return sorted(user_reqs, key=lambda x: x["submitted_at"])
+
+def get_all_users():
+    return db.child("users").get().val() or {}
+
+def update_user_status(uid, status):
+    db.child("users").child(uid).update({
+        "status": status,
+        "updated_at": str(datetime.datetime.now())
+    })
+
+def reset_user_password(email):
+    from firebase_config import auth
+    try:
+        auth.send_password_reset_email(email)
+        st.success(f"Password reset email sent to {email}")
+    except:
+        st.error("Failed to send password reset email.")
