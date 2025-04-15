@@ -1,3 +1,6 @@
+from utils.ui import render_header
+render_header()
+
 import streamlit as st
 from utils.auth import ensure_logged_in
 from utils.db import submit_payment_request
