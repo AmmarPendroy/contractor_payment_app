@@ -1,8 +1,14 @@
+import streamlit as st
+from utils.auth import login_user, register_user
 from utils.ui import render_header
 render_header()
 
-import streamlit as st
-from utils.auth import login_user, register_user
+if "user" in st.session_state:
+    role = st.session_state.user["role"]
+    if role == "admin":
+        st.markdown('<style>.sidebar .sidebar-content { background-color: #E6F0FF; }</style>', unsafe_allow_html=True)
+    elif role == "contractor":
+        st.markdown('<style>.sidebar .sidebar-content { background-color: #E8F8F0; }</style>', unsafe_allow_html=True)
 
 st.set_page_config(page_title="Login", layout="centered")
 
@@ -27,10 +33,3 @@ with tab2:
             register_user(new_email, new_password, role.lower())
         else:
             st.warning("Passwords do not match.")
-
-if "user" in st.session_state:
-    role = st.session_state.user["role"]
-    if role == "admin":
-        st.markdown('<style>.sidebar .sidebar-content {{ background-color: #E6F0FF; }}</style>', unsafe_allow_html=True)
-    elif role == "contractor":
-        st.markdown('<style>.sidebar .sidebar-content {{ background-color: #E8F8F0; }}</style>', unsafe_allow_html=True)
