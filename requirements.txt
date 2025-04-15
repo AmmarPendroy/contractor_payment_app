@@ -1,6 +1,6 @@
 streamlit
 streamlit-extras
-pyrebase
+pyrebase4
 pandas
 plotly
 secure-smtplib
