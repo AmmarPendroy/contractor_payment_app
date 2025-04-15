@@ -1,6 +1,7 @@
 import streamlit as st
 from firebase_config import auth, db
 import datetime
+
 def login_user(email, password):
     if not email.endswith("@geg-construction.com"):
     st.error("Only @geg-construction.com emails are allowed.")
