@@ -2,6 +2,7 @@ import streamlit as st
 from utils.ui import render_header
 from utils.auth import get_current_user
 from utils.sidebar import render_sidebar
+from utils.auth import get_current_user
 
 # Page routing
 PAGES = {
