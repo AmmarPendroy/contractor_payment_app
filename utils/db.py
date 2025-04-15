@@ -42,13 +42,6 @@ def get_all_requests(status_filter=None):
         return {k: v for k, v in all_reqs.items() if v.get("status") == status_filter}
     return all_reqs
 
-def update_request_status(req_id, new_status):
-    db.child("payment_requests").child(req_id).update({
-        "status": new_status,
-        "reviewed_at": str(datetime.datetime.now()),
-        "reviewer": st.session_state.user["email"]
-    })
-
 def get_user_requests(uid):
     all_reqs = db.child("payment_requests").get().val() or {}
     user_reqs = [v for v in all_reqs.values() if v.get("user_id") == uid]
