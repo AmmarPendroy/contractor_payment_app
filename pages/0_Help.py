@@ -1,8 +1,15 @@
 import streamlit as st
 from utils.ui import render_header
+render_header()
+
+if "user" in st.session_state:
+    role = st.session_state.user["role"]
+    if role == "admin":
+        st.markdown('<style>.sidebar .sidebar-content { background-color: #E6F0FF; }</style>', unsafe_allow_html=True)
+    elif role == "contractor":
+        st.markdown('<style>.sidebar .sidebar-content { background-color: #E8F8F0; }</style>', unsafe_allow_html=True)
 
 st.set_page_config(page_title="Help & Instructions", layout="wide")
-render_header()
 
 st.title("📖 Welcome to the Contractor Payment System")
 
