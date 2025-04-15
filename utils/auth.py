@@ -11,6 +11,10 @@ def login_user(email, password):
             st.error("User profile not found.")
             return
 
+        if profile.get("status") != "approved":
+            st.warning("Your account is not yet approved.")
+            return
+
         st.session_state.user = {
             "uid": uid,
             "email": email,
@@ -29,10 +33,11 @@ def register_user(email, password, role):
         profile = {
             "email": email,
             "role": role,
+            "status": "pending",
             "created_at": str(datetime.datetime.now())
         }
         db.child("users").child(uid).set(profile)
-        st.success("Registration successful! You can now log in.")
+        st.success("Registration successful! Awaiting admin approval.")
     except Exception as e:
         st.error("Registration failed.")
 
