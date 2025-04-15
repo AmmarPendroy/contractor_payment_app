@@ -70,3 +70,11 @@ send_email(
     message=f"New request from {contractor} for ${amount}.\n\nCheck dashboard to review.",
     to_email=st.secrets["email"]["notify_admin"]
 )
+
+def log_action(user_email, action, details):
+    db.child("logs").push({
+        "user": user_email,
+        "action": action,
+        "details": details,
+        "timestamp": str(datetime.datetime.now())
+    })
