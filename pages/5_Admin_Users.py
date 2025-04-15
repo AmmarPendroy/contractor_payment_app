@@ -42,3 +42,10 @@ else:
             with col3:
                 if st.button("🔁 Reset Password", key=f"reset_{uid}"):
                     reset_user_password(user["email"])
+
+if "user" in st.session_state:
+    role = st.session_state.user["role"]
+    if role == "admin":
+        st.markdown('<style>.sidebar .sidebar-content {{ background-color: #E6F0FF; }}</style>', unsafe_allow_html=True)
+    elif role == "contractor":
+        st.markdown('<style>.sidebar .sidebar-content {{ background-color: #E8F8F0; }}</style>', unsafe_allow_html=True)
