@@ -3,3 +3,4 @@ pyrebase4==4.5.0
 pandas
 plotly
 secure-smtplib
+gcloud
