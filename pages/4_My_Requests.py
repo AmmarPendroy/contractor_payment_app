@@ -1,9 +1,15 @@
-from utils.ui import render_header
-render_header()
-
 import streamlit as st
 from utils.auth import ensure_logged_in
 from utils.db import get_user_requests
+from utils.ui import render_header
+render_header()
+
+if "user" in st.session_state:
+    role = st.session_state.user["role"]
+    if role == "admin":
+        st.markdown('<style>.sidebar .sidebar-content { background-color: #E6F0FF; }</style>', unsafe_allow_html=True)
+    elif role == "contractor":
+        st.markdown('<style>.sidebar .sidebar-content { background-color: #E8F8F0; }</style>', unsafe_allow_html=True)
 
 st.set_page_config(page_title="My Requests", layout="wide")
 ensure_logged_in(role="contractor")
@@ -15,7 +21,7 @@ requests = get_user_requests(st.session_state.user["uid"])
 if not requests:
     st.info("No submissions yet.")
 else:
-    for req in reversed(requests):  # latest first
+    for req in reversed(requests):
         status = req.get("status", "unknown").capitalize()
         status_color = {
             "Pending": "orange",
@@ -37,10 +43,3 @@ else:
                 st.markdown("**Attached Documents:**")
                 for url in req["documents"]:
                     st.markdown(f"[📎 View File]({url})", unsafe_allow_html=True)
-
-if "user" in st.session_state:
-    role = st.session_state.user["role"]
-    if role == "admin":
-        st.markdown('<style>.sidebar .sidebar-content {{ background-color: #E6F0FF; }}</style>', unsafe_allow_html=True)
-    elif role == "contractor":
-        st.markdown('<style>.sidebar .sidebar-content {{ background-color: #E8F8F0; }}</style>', unsafe_allow_html=True)
