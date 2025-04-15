@@ -4,3 +4,4 @@ pyrebase4
 pandas
 plotly
 secure-smtplib
+pyrebase4
