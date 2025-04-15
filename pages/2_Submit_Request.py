@@ -30,3 +30,10 @@ with st.form("payment_form", clear_on_submit=True):
             description=description,
             files=uploaded_files
         )
+
+if "user" in st.session_state:
+    role = st.session_state.user["role"]
+    if role == "admin":
+        st.markdown('<style>.sidebar .sidebar-content {{ background-color: #E6F0FF; }}</style>', unsafe_allow_html=True)
+    elif role == "contractor":
+        st.markdown('<style>.sidebar .sidebar-content {{ background-color: #E8F8F0; }}</style>', unsafe_allow_html=True)
