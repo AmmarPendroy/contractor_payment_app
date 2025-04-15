@@ -48,3 +48,8 @@ def update_request_status(req_id, new_status):
         "reviewed_at": str(datetime.datetime.now()),
         "reviewer": st.session_state.user["email"]
     })
+
+def get_user_requests(uid):
+    all_reqs = db.child("payment_requests").get().val() or {}
+    user_reqs = [v for v in all_reqs.values() if v.get("user_id") == uid]
+    return sorted(user_reqs, key=lambda x: x["submitted_at"])
