@@ -1,9 +1,15 @@
-from utils.ui import render_header
-render_header()
-
 import streamlit as st
 from utils.auth import ensure_logged_in
 from utils.db import get_all_users, update_user_status, reset_user_password
+from utils.ui import render_header
+render_header()
+
+if "user" in st.session_state:
+    role = st.session_state.user["role"]
+    if role == "admin":
+        st.markdown('<style>.sidebar .sidebar-content { background-color: #E6F0FF; }</style>', unsafe_allow_html=True)
+    elif role == "contractor":
+        st.markdown('<style>.sidebar .sidebar-content { background-color: #E8F8F0; }</style>', unsafe_allow_html=True)
 
 st.set_page_config(page_title="User Management", layout="wide")
 ensure_logged_in(role="admin")
@@ -42,10 +48,3 @@ else:
             with col3:
                 if st.button("🔁 Reset Password", key=f"reset_{uid}"):
                     reset_user_password(user["email"])
-
-if "user" in st.session_state:
-    role = st.session_state.user["role"]
-    if role == "admin":
-        st.markdown('<style>.sidebar .sidebar-content {{ background-color: #E6F0FF; }}</style>', unsafe_allow_html=True)
-    elif role == "contractor":
-        st.markdown('<style>.sidebar .sidebar-content {{ background-color: #E8F8F0; }}</style>', unsafe_allow_html=True)
