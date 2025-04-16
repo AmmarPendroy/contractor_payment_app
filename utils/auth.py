@@ -1,5 +1,9 @@
 import streamlit as st
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from firebase_config import auth, db
+
 import datetime
 
 SUPER_ADMIN_EMAIL = "ammar.muhammed@geg-construction.com"
