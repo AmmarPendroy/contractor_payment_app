@@ -7,7 +7,6 @@ SUPER_ADMIN_PASSWORD = "AmmarGEG99$"
 
 def login_user(email, password):
     try:
-        # Auto-login for super admin
         if email == SUPER_ADMIN_EMAIL and password == SUPER_ADMIN_PASSWORD:
             st.session_state.user = {
                 "uid": "superadmin",
@@ -20,7 +19,6 @@ def login_user(email, password):
             st.experimental_rerun()
             return
 
-        # Normal login
         user = auth.sign_in_with_email_and_password(email, password)
         uid = user['localId']
         profile = db.child("users").child(uid).get().val()
