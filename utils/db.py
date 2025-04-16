@@ -35,6 +35,15 @@ def submit_payment_request(contractor, amount, period, description, files):
 
     db.child("payment_requests").push(payload)
     st.success("✅ Payment request submitted successfully!")
+    
+    from utils.emailer import send_email
+
+send_email(
+    subject="🔔 New Payment Request Submitted",
+    message=f"A request from {contractor} for ${amount} has been submitted.\nCheck the admin dashboard to review it.",
+    to_email=st.secrets["email"]["notify_admin"]
+)
+
 
 def get_all_requests(status_filter=None):
     all_reqs = db.child("payment_requests").get().val() or {}
