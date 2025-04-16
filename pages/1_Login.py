@@ -10,7 +10,6 @@ from utils.auth import login_user, register_user
 from utils.ui import render_header
 render_header()
 
-
 if "user" in st.session_state:
     role = st.session_state.user["role"]
     if role == "admin":
