@@ -6,9 +6,10 @@ import sys
 import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
-from utils.auth import login_user, register_user
 from utils.ui import render_header
 render_header()
+from utils.auth import login_user, register_user
+
 
 
 if "user" in st.session_state:
