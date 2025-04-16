@@ -1,5 +1,5 @@
 streamlit
-pyrebase4==4.5.0
+pyrebase
 pandas
 plotly
 secure-smtplib
