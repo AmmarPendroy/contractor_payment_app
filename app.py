@@ -1,12 +1,13 @@
 import streamlit as st
-from utils.ui import render_header
-render_header()
 
 st.set_page_config(
     page_title="Contractor Payment System",
     layout="wide",
     initial_sidebar_state="expanded"
 )
+
+from utils.ui import render_header
+render_header()
 
 # Role-based sidebar color
 if "user" in st.session_state:
