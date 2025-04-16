@@ -1,4 +1,4 @@
-import pyrebase
+import pyrebase4
 import streamlit as st
 
 # Firebase configuration pulled securely from .streamlit/secrets.toml
