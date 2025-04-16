@@ -1,5 +1,5 @@
 import streamlit as st
-from contractor_payment_app.firebase_config import auth, db
+from firebase_config import auth, db  ✅
 import datetime
 
 SUPER_ADMIN_EMAIL = "ammar.muhammed@geg-construction.com"
