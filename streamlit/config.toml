@@ -1,5 +1,9 @@
 [server]
 headless = true
+port = 8501
+enableCORS = false
 
 [global]
+showWarningOnDirectExecution = false
+# Use Python 3.10 for compatibility with pyrebase4
 pythonVersion = "3.10"
