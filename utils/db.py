@@ -1,5 +1,5 @@
 import streamlit as st
-from firebase_config import db, storage
+from ontractor_payment_app.firebase_config import db, storage
 import datetime
 import uuid
 
