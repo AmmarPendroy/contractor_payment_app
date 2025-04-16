@@ -4,7 +4,6 @@ st.set_page_config(page_title="Login", layout="centered")
 
 import sys
 import os
-# Add path to parent so we can import from utils/
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 from utils.auth import login_user, register_user
